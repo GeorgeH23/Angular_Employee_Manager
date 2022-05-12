@@ -36,9 +36,11 @@ export class AppComponent implements OnInit {
       (response: Employee) => {
         console.log(response);
         this.getEmployees();
+        addForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+        addForm.reset();
       }
     );
   }
@@ -46,6 +48,19 @@ export class AppComponent implements OnInit {
   public onUpdateEmployee(employee: Employee): void {
     this.employeeService.updateEmployee(employee).subscribe(
       (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        
+      }
+    );
+  }
+
+  public onDeleteEmployee(employee: Employee): void {
+    this.employeeService.deleteEmployee(employee.id).subscribe(
+      (response: void) => {
         console.log(response);
         this.getEmployees();
       },
