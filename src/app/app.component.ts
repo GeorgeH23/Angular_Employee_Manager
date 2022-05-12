@@ -12,6 +12,7 @@ import { EmployeeService } from './employee.service';
 export class AppComponent implements OnInit {
   public employees: Employee[];
   public editEmployee: Employee;
+  public deleteEmployee: Employee;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -53,13 +54,12 @@ export class AppComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        
       }
     );
   }
 
-  public onDeleteEmployee(employee: Employee): void {
-    this.employeeService.deleteEmployee(employee.id).subscribe(
+  public onDeleteEmployee(employeeId: number): void {
+    this.employeeService.deleteEmployee(employeeId).subscribe(
       (response: void) => {
         console.log(response);
         this.getEmployees();
@@ -76,20 +76,19 @@ export class AppComponent implements OnInit {
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    if (mode == 'add') {
+    if (mode === 'add') {
       button.setAttribute('data-target', '#addEmployeeModal');
     }
-    if (mode == 'edit') {
+    if (mode === 'edit') {
       this.editEmployee = employee;
       button.setAttribute('data-target', '#updateEmployeeModal');
     }
-    if (mode == 'delete') {
+    if (mode === 'delete') {
+      this.deleteEmployee = employee;
       button.setAttribute('data-target', '#deleteEmployeeModal');
     }
-    container?.appendChild(button);
+    container.appendChild(button);
     button.click();
   }
-
-
 
 }
