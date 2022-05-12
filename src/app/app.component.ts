@@ -70,6 +70,19 @@ export class AppComponent implements OnInit {
     );
   }
 
+  public searchEmployees(key: string): void {
+    const results: Employee[] = [];
+    for (const employee of this.employees) {
+      if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(employee);
+      }
+    }
+    this.employees = results;
+    if (!key) {
+      this.getEmployees();
+    }
+  }
+
   public onOpenModal(employee: Employee, mode: string): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
