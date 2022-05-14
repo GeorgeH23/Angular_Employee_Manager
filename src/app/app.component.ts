@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Employee } from './employee';
 import { EmployeeService } from './employee.service';
+import { EmployeeList } from './employeeList';
+
 
 @Component({
   selector: 'app-root',
@@ -22,8 +24,8 @@ export class AppComponent implements OnInit {
 
   public getEmployees(): void {
     this.employeeService.getEmployees().subscribe(
-      (response: Employee[]) => {
-        this.employees = response;
+      (response: EmployeeList) => {
+        this.employees = response.employeeList;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

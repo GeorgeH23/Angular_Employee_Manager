@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http'
 import { Employee } from './employee';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { EmployeeList } from './employeeList';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-  public getEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.apiServerUrl}/employee/all`);
+  public getEmployees(): Observable<EmployeeList> {
+    return this.http.get<EmployeeList>(`${this.apiServerUrl}/employee/all`);
   }
 
   public addEmployee(employee: Employee): Observable<Employee> {
