@@ -13,6 +13,7 @@ import { EmployeeList } from './employeeList';
 })
 export class AppComponent implements OnInit {
   public employees: Employee[];
+  private searchEmployeesList: Employee[];
   public editEmployee: Employee;
   public deleteEmployee: Employee;
 
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
     this.employeeService.getEmployees().subscribe(
       (response: EmployeeList) => {
         this.employees = response.employeeList;
+        this.searchEmployeesList = response.employeeList;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -74,7 +76,7 @@ export class AppComponent implements OnInit {
 
   public searchEmployees(key: string): void {
     const results: Employee[] = [];
-    for (const employee of this.employees) {
+    for (const employee of this.searchEmployeesList) {
       if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(employee);
       }
